@@ -25,14 +25,6 @@ namespace PCMSApi.Services
         Task<PatientDto?> GetPatientByIdAsync(Guid patientId, CancellationToken cancellationToken);
 
         /// <summary>
-        /// Creates a new patient.
-        /// </summary>
-        /// <param name="dto">The patient data transfer object.</param>
-        /// <param name="cancellationToken">Cancellation token.</param>
-        /// <returns>The created PatientDto object.</returns>
-        Task<PatientDto> CreatePatientAsync(PatientDto dto, CancellationToken cancellationToken);
-
-        /// <summary>
         /// Creates a new patient with associated files.
         /// </summary>
         /// <param name="dto">The patient data transfer object.</param>
@@ -40,7 +32,7 @@ namespace PCMSApi.Services
         /// <param name="documentTypes">The list of document types corresponding to the files.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>The created PatientDto object.</returns>
-        Task<PatientDto> CreatePatientWithFilesAsync(PatientDto dto, List<IFormFile> files, List<string> documentTypes, CancellationToken cancellationToken);
+        Task<PatientDto> CreatePatient(PatientDto dto, List<IFormFile> files, List<string> documentTypes, CancellationToken cancellationToken);
 
         /// <summary>
         /// Updates an existing patient.
@@ -49,7 +41,7 @@ namespace PCMSApi.Services
         /// <param name="dto">The patient data transfer object.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>True if the update was successful, otherwise false.</returns>
-        Task<bool> UpdatePatientAsync(Guid patientId, PatientDto dto, CancellationToken cancellationToken);
+        Task<bool> UpdatePatient(Guid patientId, PatientDto dto, CancellationToken cancellationToken);
 
         /// <summary>
         /// Updates an existing patient with associated files.
@@ -60,7 +52,7 @@ namespace PCMSApi.Services
         /// <param name="documentTypes">The list of document types corresponding to the files.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>True if the update was successful, otherwise false.</returns>
-        Task<bool> UpdatePatientWithFilesAsync(Guid patientUid, PatientDto dto, List<IFormFile> files, List<string> documentTypes, CancellationToken cancellationToken);
+        Task<bool> UpdatePatient(Guid patientUid, PatientDto dto, List<IFormFile> files, List<string> documentTypes, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a patient by their unique identifier.
@@ -68,7 +60,7 @@ namespace PCMSApi.Services
         /// <param name="patientId">The unique identifier of the patient.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>True if the deletion was successful, otherwise false.</returns>
-        Task<bool> DeletePatientAsync(Guid patientId, CancellationToken cancellationToken);
+        Task<bool> DeletePatient(Guid patientId, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an attachment by its unique identifier.
@@ -77,6 +69,6 @@ namespace PCMSApi.Services
         /// <param name="attachmentId">The unique identifier of the attachment.</param>
         /// <param name="cancellationToken">Cancellation token.</param>
         /// <returns>True if the deletion was successful, otherwise false.</returns>
-        Task<bool> DeleteAttachmentAsync(Guid patientUid, Guid attachmentId, CancellationToken cancellationToken);
+        Task<bool> DeleteAttachment(Guid patientUid, Guid attachmentId, CancellationToken cancellationToken);
     }
 }

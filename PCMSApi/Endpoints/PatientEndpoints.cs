@@ -35,50 +35,21 @@ public static class PatientEndpoints
             .Produces(StatusCodes.Status404NotFound);
 
         group.MapPost("/", async (HttpRequest request, IPatientService service, CancellationToken ct) =>
-                await new Patients(service).CreatePatientWithFiles(request, ct))
-            .WithName("CreatePatientWithFiles")
+                await new Patients(service).CreatePatient(request, ct))
+            .WithName("CreatePatient")
             .WithDescription("Create a new patient and upload multiple documents in a multipart/form-data request.")
             .Accepts<IFormFile>("multipart/form-data")
             .Produces<PatientDto>(StatusCodes.Status201Created)
             .Produces(StatusCodes.Status400BadRequest);
 
-        group.MapPut("/{id:guid}", async (HttpRequest request, Guid id, IPatientService service, CancellationToken ct) =>
-        {
-            var form = await request.ReadFormAsync(ct);
-            var patientJson = form["patient"].FirstOrDefault();
-            var files = form.Files.ToList();
-            var documentTypes = form["documentTypes"].ToList();
-
-            if (string.IsNullOrWhiteSpace(patientJson))
-                return Results.BadRequest("Missing patient data.");
-
-            if (documentTypes.Count != files.Count)
-                return Results.BadRequest("Each uploaded file must have a corresponding document type.");
-
-            PatientDto? dto;
-            try
-            {
-                dto = JsonSerializer.Deserialize<PatientDto>(patientJson, new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                });
-            }
-            catch (JsonException)
-            {
-                return Results.BadRequest("Invalid JSON for patient.");
-            }
-
-            if (dto is null)
-                return Results.BadRequest("Could not parse patient data.");
-
-            var result = await service.UpdatePatientWithFilesAsync(id, dto, files, documentTypes, ct);
-            return result ? Results.Ok() : Results.NotFound();
-        })
-        .WithName("UpdatePatientWithFiles")
-        .WithDescription("Update an existing patient and upload multiple documents in a multipart/form-data request.")
-        .Accepts<IFormFile>("multipart/form-data")
-        .Produces(StatusCodes.Status200OK)
-        .Produces(StatusCodes.Status404NotFound);
+        group.MapPut("/{id:guid}", async (HttpRequest request, Guid id, Patients handler, CancellationToken ct) =>
+                await handler.UpdatePatient(request, id, ct))
+            .WithName("UpdatePatient")
+            .WithDescription("Update a patient and optionally upload new attachments.")
+            .Accepts<IFormFile>("multipart/form-data")
+            .Produces(StatusCodes.Status200OK)
+            .Produces(StatusCodes.Status404NotFound)
+            .Produces(StatusCodes.Status400BadRequest);
 
         group.MapDelete("/{id:guid}", async (Guid id, IPatientService service, CancellationToken ct) =>
                 await new Patients(service).DeletePatient(id, ct))
@@ -93,7 +64,7 @@ public static class PatientEndpoints
                 IPatientService service,
                 CancellationToken ct) =>
         {
-            var result = await service.DeleteAttachmentAsync(id, attachmentId, ct);
+            var result = await service.DeleteAttachment(id, attachmentId, ct);
             return result
                 ? Results.Ok()
                 : Results.NotFound("Attachment or Patient not found.");

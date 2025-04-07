@@ -109,7 +109,7 @@ public class PatientService(AppDb db, IS3Service s3Service, IMapper mapper) : IP
     /// <param name="documentTypes">The list of document types corresponding to the files.</param>
     /// <param name="ct">Cancellation token.</param>
     /// <returns>The created PatientDto object.</returns>
-    public async Task<PatientDto> CreatePatientWithFilesAsync(
+    public async Task<PatientDto> CreatePatient(
         PatientDto dto,
         List<IFormFile> files,
         List<string> documentTypes,
@@ -196,7 +196,7 @@ public class PatientService(AppDb db, IS3Service s3Service, IMapper mapper) : IP
     /// <param name="dto">The patient data transfer object.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>True if the update was successful, otherwise false.</returns>
-    public async Task<bool> UpdatePatientAsync(Guid patientUid, PatientDto dto, CancellationToken cancellationToken)
+    public async Task<bool> UpdatePatient(Guid patientUid, PatientDto dto, CancellationToken cancellationToken)
     {
         var existing = await db.Patients
             .Include(p => p.MedicalHistory)
@@ -237,7 +237,7 @@ public class PatientService(AppDb db, IS3Service s3Service, IMapper mapper) : IP
     /// <param name="documentTypes">The list of document types corresponding to the files.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>True if the update was successful, otherwise false.</returns>
-    public async Task<bool> UpdatePatientWithFilesAsync(Guid patientUid, PatientDto dto, List<IFormFile> files, List<string> documentTypes, CancellationToken cancellationToken)
+    public async Task<bool> UpdatePatient(Guid patientUid, PatientDto dto, List<IFormFile> files, List<string> documentTypes, CancellationToken cancellationToken)
     {
         var patient = await db.Patients
             .Include(p => p.MedicalHistory)
@@ -306,7 +306,7 @@ public class PatientService(AppDb db, IS3Service s3Service, IMapper mapper) : IP
     /// <param name="patientUid">The unique identifier of the patient.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>True if the deletion was successful, otherwise false.</returns>
-    public async Task<bool> DeletePatientAsync(Guid patientUid, CancellationToken cancellationToken)
+    public async Task<bool> DeletePatient(Guid patientUid, CancellationToken cancellationToken)
     {
         var patient = await db.Patients
             .Include(p => p.Attachments)
@@ -339,7 +339,7 @@ public class PatientService(AppDb db, IS3Service s3Service, IMapper mapper) : IP
     /// <param name="attachmentId">The unique identifier of the attachment.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>True if the deletion was successful, otherwise false.</returns>
-    public async Task<bool> DeleteAttachmentAsync(Guid patientUid, Guid attachmentId, CancellationToken cancellationToken)
+    public async Task<bool> DeleteAttachment(Guid patientUid, Guid attachmentId, CancellationToken cancellationToken)
     {
         var patient = await db.Patients
             .Include(p => p.Attachments)

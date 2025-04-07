@@ -48,25 +48,6 @@ public class Patients(IPatientService _service)
     }
 
     /// <summary>
-    /// Creates a new patient using a JSON payload.
-    /// </summary>
-    /// <param name="newPatientDto">The patient data transfer object.</param>
-    /// <param name="cancellationToken">Cancellation token.</param>
-    /// <returns>The created patient details.</returns>
-    [SwaggerOperation(
-        Summary = "Create a patient (JSON only)",
-        Description = "Creates a new patient using a JSON payload. Attachments not supported in this method."
-    )]
-    public async Task<IResult> CreatePatient(PatientDto newPatientDto, CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(newPatientDto.Name))
-            return Results.BadRequest("Patient name is required.");
-
-        var createdPatient = await _service.CreatePatientAsync(newPatientDto, cancellationToken);
-        return Results.Created($"/patients/{createdPatient.PatientId}", createdPatient);
-    }
-
-    /// <summary>
     /// Creates a new patient with file uploads.
     /// </summary>
     /// <param name="request">The HTTP request containing the patient data and files.</param>
@@ -82,7 +63,7 @@ public class Patients(IPatientService _service)
         """
     )]
     [Consumes("multipart/form-data")]
-    public async Task<IResult> CreatePatientWithFiles(HttpRequest request, CancellationToken cancellationToken)
+    public async Task<IResult> CreatePatient(HttpRequest request, CancellationToken cancellationToken)
     {
         var form = await request.ReadFormAsync(cancellationToken);
         var patientJson = form["patient"].FirstOrDefault(); // safely get string or null
@@ -115,7 +96,7 @@ public class Patients(IPatientService _service)
         if (patientDto == null)
             return Results.BadRequest("Could not parse patient data.");
 
-        var createdPatient = await _service.CreatePatientWithFilesAsync(
+        var createdPatient = await _service.CreatePatient(
             patientDto,
             files,
             documentTypes,
@@ -132,16 +113,42 @@ public class Patients(IPatientService _service)
     /// <param name="updatedDto">The updated patient data transfer object.</param>
     /// <param name="cancellationToken">Cancellation token.</param>
     /// <returns>A 200 status if the update was successful, otherwise a 404 status.</returns>
+    [Consumes("multipart/form-data")]
     [SwaggerOperation(
-        Summary = "Update a patient",
-        Description = "Updates a patient's details such as name, contact info, and medical history. Attachments are not modified."
+        Summary = "Update a patient (with optional attachments)",
+        Description = "Updates a patient's details and optionally uploads attachments via multipart/form-data."
     )]
-    public async Task<IResult> UpdatePatient(Guid patientId, PatientDto updatedDto, CancellationToken cancellationToken)
+    public async Task<IResult> UpdatePatient(HttpRequest request, Guid patientId, CancellationToken cancellationToken)
     {
-        var result = await _service.UpdatePatientAsync(patientId, updatedDto, cancellationToken);
-        return result
-            ? Results.Ok()
-            : Results.NotFound($"Patient with ID {patientId} not found.");
+        var form = await request.ReadFormAsync(cancellationToken);
+        var patientJson = form["patient"].FirstOrDefault();
+        var files = form.Files.ToList();
+        var documentTypes = form["documentTypes"].ToList();
+
+        if (string.IsNullOrWhiteSpace(patientJson))
+            return Results.BadRequest("Missing patient data.");
+
+        if (documentTypes.Count != files.Count)
+            return Results.BadRequest("Each uploaded file must have a corresponding document type.");
+
+        PatientDto? dto;
+        try
+        {
+            dto = JsonSerializer.Deserialize<PatientDto>(patientJson, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+        }
+        catch (JsonException)
+        {
+            return Results.BadRequest("Invalid JSON for patient.");
+        }
+
+        if (dto == null)
+            return Results.BadRequest("Could not parse patient data.");
+
+        var updated = await _service.UpdatePatient(patientId, dto, files, documentTypes, cancellationToken);
+        return updated ? Results.Ok() : Results.NotFound($"Patient with ID {patientId} not found.");
     }
 
     /// <summary>
@@ -156,7 +163,7 @@ public class Patients(IPatientService _service)
     )]
     public async Task<IResult> DeletePatient(Guid patientId, CancellationToken cancellationToken)
     {
-        var deleted = await _service.DeletePatientAsync(patientId, cancellationToken);
+        var deleted = await _service.DeletePatient(patientId, cancellationToken);
         return deleted
             ? Results.NoContent()
             : Results.NotFound($"Patient with ID {patientId} not found.");
