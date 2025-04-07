@@ -9,7 +9,6 @@ It consists of a modern React UI, a .NET 9 Minimal API backend, and LocalStack f
 
 The following diagram outlines the high-level architecture and flow of data between components:
 
-![Design Diagram](pcms.drawio.png)
 
 ---
 
