@@ -1,0 +1,62 @@
+# ---- Global ----
+*.DS_Store
+*.log
+*.swp
+*.swo
+*.tmp
+Thumbs.db
+
+.vs/
+
+# ---- LocalStack / Docker ----
+localstack/.localstack
+**/.localstack
+.env
+docker-compose.override.yml
+*.localstack
+*.pid
+
+# ---- PCMSApi (.NET 9) ----
+PCMSApi/bin/
+PCMSApi/obj/
+PCMSApi/.vs/
+PCMSApi/.vscode/
+PCMSApi/appsettings.Development.json
+PCMSApi/appsettings.Local.json
+PCMSApi/appsettings.*.json
+
+# Rider / JetBrains
+.idea/
+*.sln.iml
+
+# ---- pcms-ui (React) ----
+pcms-ui/node_modules/
+pcms-ui/.next/
+pcms-ui/.env.local
+pcms-ui/.env.development.local
+pcms-ui/.env.test.local
+pcms-ui/.env.production.local
+pcms-ui/.eslintcache
+pcms-ui/build/
+pcms-ui/dist/
+pcms-ui/coverage/
+pcms-ui/yarn-error.log
+pcms-ui/npm-debug.log*
+pcms-ui/.parcel-cache/
+
+# VS Code settings
+.vscode/
+
+# ---- OS-specific ----
+*.orig
+*.bak
+*.old
+*.tgz
+*.gz
+*.zip
+*.tar
+*.7z
+*.rar
+ehthumbs.db
+Icon?
+Desktop.ini

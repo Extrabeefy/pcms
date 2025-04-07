@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35919.96
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PCMSApi", "PCMSApi\PCMSApi.csproj", "{D0A17395-5D59-436B-B997-518C87BC05ED}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "fake_scans", "fake_scans", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "init", "init", "{69C3227F-B96F-4516-B56E-C7B558B13825}"
+	ProjectSection(SolutionItems) = preProject
+		01_create_schema.sql = 01_create_schema.sql
+		02_insert_data.sql = 02_insert_data.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+	ProjectSection(SolutionItems) = preProject
+		docker-compose.yml = docker-compose.yml
+		Makefile = Makefile
+		run.ps1 = run.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "alice_carter", "alice_carter", "{D5BE3A15-6C2C-43C6-B9E3-DEC3E7FD0B1A}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\mri_brain.png = ..\..\..\Downloads\mri_brain.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "bob_jensen", "bob_jensen", "{1DB2B989-542E-4BCE-93FE-257E88D782A3}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\cat_abdomen.png = ..\..\..\Downloads\cat_abdomen.png
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "charlie_kim", "charlie_kim", "{D7F13C59-87BB-4A14-B711-99B991C6A33E}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\Downloads\doctor_report.pdf = ..\..\..\Downloads\doctor_report.pdf
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D0A17395-5D59-436B-B997-518C87BC05ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D0A17395-5D59-436B-B997-518C87BC05ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D0A17395-5D59-436B-B997-518C87BC05ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D0A17395-5D59-436B-B997-518C87BC05ED}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D5BE3A15-6C2C-43C6-B9E3-DEC3E7FD0B1A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{1DB2B989-542E-4BCE-93FE-257E88D782A3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{D7F13C59-87BB-4A14-B711-99B991C6A33E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {10F9DC8A-87C4-4F1E-9A0A-783ACB8B3DDC}
+	EndGlobalSection
+EndGlobal
