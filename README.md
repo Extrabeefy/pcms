@@ -26,23 +26,35 @@ Makefile        # Command shortcuts for running LocalStack & uploading files
 
 ## 🧪 Features
 
+## 🧪 Features
+
 ### ✅ WebAPI (.NET 9 Minimal API)
-- Create, update, delete patients
-- Upload and delete clinical attachments (MRI, CAT Scan, Doctor Reports)
-- Stores attachments in S3 (simulated via LocalStack)
-- JWT-based static token authentication for local dev
+- Built using the latest .NET 9 Minimal API style for performance, simplicity, and clarity
+- Supports full CRUD operations on patient records
+- Uploads and manages clinical attachments (MRI, CAT Scan, Doctor Reports)
+- Stores metadata in Postgres and files in S3-compatible storage (LocalStack)
+- JWT-based static token authentication for development use
 
 ### ✅ React UI (`pcms-ui`)
-- Create/Edit/Delete patients
-- Upload multiple files with document type tags
-- Search/filter by name, condition, or document type
-- Login/logout with a static token
-- Clean, responsive layout with full CRUD support
+- Responsive, accessible interface with full Create, Read, Update, Delete support
+- Upload multiple files with associated document types via dropdown
+- Search/filter patients by name, condition, or document type
+- User authentication with login/logout buttons
 
-### ✅ LocalStack
-- Simulates S3 locally at `localhost:4566`
-- No need for real AWS credentials
+### ✅ LocalStack (Simulated AWS)
+- Emulates AWS S3 fully locally, no cloud dependency
+- **Why LocalStack?** Using LocalStack is better than managing files in mounted volumes because:
+  - Mimics production-like S3 behavior (folder structure, presigned URLs, etc.)
+  - Enables testing lifecycle events and security boundaries without touching real cloud resources
+  - Great for team workflows, CI/CD, and integration tests
 
+### ✅ PostgreSQL (Database)
+- Stores structured patient data including medical history and attachment metadata
+- Efficiently handles relational data models with foreign keys (e.g., one patient → many attachments or conditions)
+- **Why PostgreSQL?**
+  - Chosen over SQLite for its full-featured relational capabilities, concurrent access support, and robust transaction handling
+  - Scales easily with future needs like audit logging, advanced querying, and indexing
+  - Supported natively in cloud and containerized environments, making it a production-ready choice even during local development
 ---
 
 ## 🛠️ How to Run
@@ -102,12 +114,5 @@ This will:
 
 ## 🧠 Notes
 
-- The backend uses an in-memory or PostgreSQL database depending on your `appsettings.json`
 - S3 integration works fully offline via LocalStack
 - The UI checks for auth token before loading data
-
----
-
-## 🤝 License
-
-MIT – Use freely, modify boldly.
