@@ -1,7 +1,7 @@
 # 🩺 Patient Clinical Management System (PCMS)
 
-PCMS is a full-stack system for managing patient records and their clinical attachments (e.g., MRI scans, CAT scans, doctor reports).  
-It consists of a modern React UI, a .NET 9 Minimal API backend, and LocalStack for local AWS S3 simulation.
+PCMS is a full-stack system for managing patient records and their clinical attachments (e.g., MRI Scans, CAT Scans, Doctor Reports).  
+It consists of a modern React UI, .NET 9 Minimal API backend, and LocalStack for local AWS S3 simulation.
 
 ---
 
@@ -65,8 +65,7 @@ Makefile        # Command shortcuts for running LocalStack & uploading files
 make run
 ```
 
-- Spins up LocalStack and required containers using `docker-compose`
-- Starts the database, API, and UI
+- Spins up LocalStack, Postgres Database, C# .NET 9 Minimal API, and a React UI using `docker-compose`
 
 ---
 
@@ -76,17 +75,20 @@ make run
 make init-s3
 ```
 
-- Creates the `medical-files` bucket
-- Upload sample files into appropriate folders under patient UIDs
+- Creates the `medical-files` bucket and uploads sample files into appropriate folders under patient UIDs and attachment UIDs
 
 ### 🪟 Windows (PowerShell)
 
 ```powershell
 .\run.ps1 -Command run
-.\run.ps1 -Command init-s3
+```
 
-- Starts everything (api, UI, localstack, db)
-- Initializes the fake medical scan uploads into S3
+- Spins up LocalStack, Postgres Database, C# .NET 9 Minimal API, and a React UI using `docker-compose`
+
+```powershell
+.\run.ps1 -Command init-s3
+```
+- Creates the `medical-files` bucket and uploads sample files into appropriate folders under patient UIDs and attachment UIDs
 
 ---
 
