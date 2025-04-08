@@ -52,9 +52,9 @@ services:
   pcms-ui:
     image: node:20
     container_name: pcms-ui
-    working_dir: /app/pcms-ui
+    working_dir: /app
     volumes:
-      - ./pcms-ui:/app/pcms-ui
+      - ./pcms-ui:/app
     ports:
       - "3000:3000"
     command: sh -c "npm install && npm run start"
