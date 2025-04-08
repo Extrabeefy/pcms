@@ -49,17 +49,17 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d
 
-pcms-ui:
-  image: node:20
-  container_name: pcms-ui
-  working_dir: /app/pcms-ui
-  volumes:
-    - ./pcms-ui:/app/pcms-ui
-  ports:
-    - "3000:3000"
-  command: [ "npm", "run", "start" ]
-  environment:
-    - CHOKIDAR_USEPOLLING=true
+  pcms-ui:
+    image: node:20
+    container_name: pcms-ui
+    working_dir: /app/pcms-ui
+    volumes:
+      - ./pcms-ui:/app/pcms-ui
+    ports:
+      - "3000:3000"
+    command: [ "npm", "run", "start" ]
+    environment:
+      - CHOKIDAR_USEPOLLING=true
 
   app:
     image: mcr.microsoft.com/dotnet/aspnet:9.0
