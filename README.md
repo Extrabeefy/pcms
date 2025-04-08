@@ -26,8 +26,6 @@ Makefile        # Command shortcuts for running LocalStack & uploading files
 
 ## 🧪 Features
 
-## 🧪 Features
-
 ### ✅ WebAPI (.NET 9 Minimal API)
 - Built using the latest .NET 9 Minimal API style for performance, simplicity, and clarity
 - Supports full CRUD operations on patient records
