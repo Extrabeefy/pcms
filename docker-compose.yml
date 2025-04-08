@@ -51,21 +51,18 @@ services:
       - ./init:/docker-entrypoint-initdb.d
 
   pcms-ui:
-    build:
-        context: ./pcms-ui
-        dockerfile: Dockerfile
-    container_name: pcmsui
-    ports:
-        - "3000:3000"
-    environment:
-        - CHOKIDAR_USEPOLLING=true
-    volumes:
-        - ./pcms-ui:/app
-        - /app/node_modules
+    image: node:20
+    container_name: pcms-ui
     working_dir: /app
-    command: ["npm", "start"]
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./pcms-ui:/app
+      - /app/node_modules       # prevents overwriting node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+    command: sh -c "npm install && npm start"
 
-services:
   app:
     image: mcr.microsoft.com/dotnet/aspnet:9.0
     container_name: pcmsapi
