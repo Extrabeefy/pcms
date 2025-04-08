@@ -58,9 +58,9 @@ run.ps1         # Powershell commands for starting local development stack and u
 
 ## 🛠️ How to Run 
 
-### 🍎 MacOS Bash
+### 🍎 MacOS Bash (Hope it runs dont own a mac) BEWARE ** Tested on Windows **
 
-### 🔄 Run Backend + Frontend + LocalStack
+### 🔄 Run Backend + Frontend + LocalStack 
 
 ```bash
 make run
@@ -70,7 +70,7 @@ make run
 
 ---
 
-### 📂 Upload Fake Scan Files to S3
+### 📂 Upload Fake Scan Files to S3 (Hope it runs dont own a mac) BEWARE ** Tested on Windows **
 
 ```bash
 make init-s3
