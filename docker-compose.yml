@@ -66,16 +66,18 @@ services:
     command: ["npm", "start"]
 
   app:
-    build:  
-       context: ./PCMSApi 
-       dockerfile: Dockerfile
+    image: mcr.microsoft.com/dotnet/aspnet:9.0
     container_name: pcmsapi
+    working_dir: /app
+    volumes:
+      - ./PCMSApi/publish:/app
     ports:
       - "7000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Database=pcms;Username=mcg;Password=health
       - AWS_ServiceURL=http://localstack:4566
+    command: ["dotnet", "PCMSApi.dll"]
     #volumes:
       #- .:/app
     #working_dir: /app

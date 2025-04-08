@@ -8,6 +8,7 @@ Thumbs.db
 
 .vs/
 localstack
+publish
 
 # ---- LocalStack / Docker ----
 localstack/.localstack

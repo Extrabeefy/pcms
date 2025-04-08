@@ -1,6 +1,6 @@
 ﻿param (
     [Parameter(Mandatory = $true)]
-    [ValidateSet("run", "init-s3")]
+    [ValidateSet("run", "init-s3", "publish")]
     [string]$Command
 )
 
@@ -15,13 +15,19 @@ function Init-S3 {
     Write-Host "✅ S3 upload complete." -ForegroundColor Green
 }
 
+function Publish-App {
+    Write-Host "📦 Publishing .NET app..." -ForegroundColor Cyan
+    dotnet publish ./PCMSApi/PCMSApi.csproj -c Release -o ./PCMSApi/publish /p:UseAppHost=false
+    Write-Host "✅ Publish complete." -ForegroundColor Green
+}
+
 switch ($Command) {
     "run" {
+        Publish-App
         Write-Host "🌀 Running Docker Compose..." -ForegroundColor Cyan
-        docker-compose down -v
-        docker-compose up --build -d
+        docker compose down -v
+        docker compose up -d
     }
-    "init-s3" {
-        Init-S3
-    }
+    "init-s3" { Init-S3 }
+    "publish" { Publish-App }
 }
