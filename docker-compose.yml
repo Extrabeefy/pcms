@@ -10,8 +10,8 @@ services:
       - DATA_DIR=/tmp/localstack/data
       - LOCALSTACK_AUTH_TOKEN="ls-yuZoyEYu-6745-Fofa-9918-tUPAqURo0e0a"
     ports:
-      - "4566:4566"  # LocalStack Gateway
-#     - "4572:4572"  # S3
+      - "4566:4566" # LocalStack Gateway
+    #     - "4572:4572"  # S3
     volumes:
       - "./localstack:/var/lib/localstack"
       - /var/run/docker.sock:/var/run/docker.sock
@@ -24,7 +24,6 @@ services:
       - "9999:8080"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-
 
   pgadmin:
     image: dpage/pgadmin4:latest
@@ -50,18 +49,17 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./init:/docker-entrypoint-initdb.d
 
-  pcms-ui:
-    image: node:20
-    container_name: pcms-ui
-    working_dir: /app
-    ports:
-      - "3000:3000"
-    volumes:
-      - ./pcms-ui:/app
-      - /app/node_modules       # prevents overwriting node_modules
-    environment:
-      - CHOKIDAR_USEPOLLING=true
-    command: sh -c "npm install && npm start"
+pcms-ui:
+  image: node:20
+  container_name: pcms-ui
+  working_dir: /app/pcms-ui
+  volumes:
+    - ./pcms-ui:/app/pcms-ui
+  ports:
+    - "3000:3000"
+  command: [ "npm", "run", "start" ]
+  environment:
+    - CHOKIDAR_USEPOLLING=true
 
   app:
     image: mcr.microsoft.com/dotnet/aspnet:9.0
@@ -75,9 +73,9 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Database=pcms;Username=mcg;Password=health
       - AWS_ServiceURL=http://localstack:4566
-    entrypoint: ["dotnet", "PCMSApi.dll"]
+    entrypoint: [ "dotnet", "PCMSApi.dll" ]
     #volumes:
-      #- .:/app
+    #- .:/app
     #working_dir: /app
     #command: ["dotnet", "run", "--urls", "http://0.0.0.0:80"]
     depends_on:
