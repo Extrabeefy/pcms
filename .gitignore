@@ -17,6 +17,9 @@ docker-compose.override.yml
 *.localstack
 *.pid
 
+# React build
+pcms-ui/build
+
 # ---- PCMSApi (.NET 9) ----
 PCMSApi/bin/
 PCMSApi/obj/
