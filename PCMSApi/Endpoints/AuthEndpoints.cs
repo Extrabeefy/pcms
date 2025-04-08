@@ -40,7 +40,7 @@ namespace PCMSApi.Endpoints
                     claims: claims,
                     expires: DateTime.UtcNow.AddHours(1),
                     signingCredentials: new SigningCredentials(
-                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_is_a_dev_secret_key_change_me")),
+                        new SymmetricSecurityKey(Encoding.UTF8.GetBytes("this_is_a_dev_key_pcms")),
                         SecurityAlgorithms.HmacSha256)
                 ));
 

@@ -1,6 +1,6 @@
 ﻿param (
     [Parameter(Mandatory = $true)]
-    [ValidateSet("run", "init-s3", "publish", "build-ui")]
+    [ValidateSet("run", "init-s3")]
     [string]$Command
 )
 
@@ -18,48 +18,11 @@ function Init-S3 {
     Write-Host "✅ S3 upload complete." -ForegroundColor Green
 }
 
-function Publish-App {
-    $publishPath = "./PCMSApi/publish"
-
-    if (Test-Path $publishPath) {
-        Write-Host "🧹 Cleaning previous publish output..." -ForegroundColor Yellow
-        Remove-Item -Path $publishPath -Recurse -Force
-    }
-
-    Write-Host "📦 Publishing .NET app into PCMSApi/publish..." -ForegroundColor Cyan
-    dotnet publish ./PCMSApi/PCMSApi.csproj -c Release -o $publishPath /p:UseAppHost=false
-    Write-Host "✅ Publish complete." -ForegroundColor Green
-}
-
-
-function Build-UI {
-    Write-Host "🛠️ Building React UI..." -ForegroundColor Cyan
-    Push-Location ./pcms-ui
-
-    if (-not (Test-Path "node_modules")) {
-        Write-Host "📦 Installing dependencies..."
-        npm install
-    }
-
-    npm run build
-    if ($LASTEXITCODE -ne 0) {
-        Write-Host "❌ UI build failed." -ForegroundColor Red
-        exit 1
-    }
-
-    Pop-Location
-    Write-Host "✅ UI build complete." -ForegroundColor Green
-}
-
 switch ($Command) {
     "run" {
-        Publish-App
-        Build-UI
         Write-Host "🌀 Running Docker Compose..." -ForegroundColor Cyan
         docker compose down -v
         docker compose up -d
     }
     "init-s3" { Init-S3 }
-    "publish" { Publish-App }
-    "build-ui" { Build-UI }
 }

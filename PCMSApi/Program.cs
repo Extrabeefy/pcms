@@ -39,7 +39,7 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 });
 
 // Add JWT Authentication
-var jwtSecret = "this_is_a_dev_secret_key_change_me";
+var jwtSecret = "this_is_a_dev_key_pcms";
 var key = Encoding.ASCII.GetBytes(jwtSecret);
 
 builder.Services.AddAuthentication(options =>
