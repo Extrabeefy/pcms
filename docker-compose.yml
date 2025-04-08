@@ -2,13 +2,12 @@ version: '3.8'
 
 services:
   localstack:
-    image: localstack/localstack-pro:latest
+    image: localstack/localstack:latest
     container_name: localstack
     environment:
       - SERVICES=s3
       - DEBUG=1
       - DATA_DIR=/tmp/localstack/data
-      - LOCALSTACK_AUTH_TOKEN="ls-yuZoyEYu-6745-Fofa-9918-tUPAqURo0e0a"
     ports:
       - "4566:4566" # LocalStack Gateway
     #     - "4572:4572"  # S3

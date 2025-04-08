@@ -55,7 +55,9 @@ Makefile        # Command shortcuts for running LocalStack & uploading files
   - Supported natively in cloud and containerized environments, making it a production-ready choice even during local development
 ---
 
-## 🛠️ How to Run
+## 🛠️ How to Run 
+
+### 🍎 MacOS Bash
 
 ### 🔄 Run Backend + Frontend + LocalStack
 
@@ -74,9 +76,17 @@ make run
 make init-s3
 ```
 
-This will:
-- Create the `medical-files` bucket
+- Creates the `medical-files` bucket
 - Upload sample files into appropriate folders under patient UIDs
+
+### 🪟 Windows (PowerShell)
+
+```powershell
+.\run.ps1 -Command run
+.\run.ps1 -Command init-s3
+
+- Starts everything (api, UI, localstack, db)
+- Initializes the fake medical scan uploads into S3
 
 ---
 
