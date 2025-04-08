@@ -38,8 +38,6 @@ pcms-ui/.env.development.local
 pcms-ui/.env.test.local
 pcms-ui/.env.production.local
 pcms-ui/.eslintcache
-pcms-ui/build/
-pcms-ui/dist/
 pcms-ui/coverage/
 pcms-ui/yarn-error.log
 pcms-ui/npm-debug.log*

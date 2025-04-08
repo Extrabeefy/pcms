@@ -1,0 +1,240 @@
+:root {
+  --primary-color: #2f80ed;
+  --primary-hover: #1c60c2;
+  --danger-color: #dc3545;
+  --danger-hover: #a71d2a;
+  --bg-color: #f4f7fc;
+  --card-bg: #ffffff;
+  --text-color: #333;
+  --border-color: #ddd;
+  --input-bg: #fefefe;
+  --card-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  --card-elevated-bg: #f9fbff;
+}
+
+/* Background and Base */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 2rem;
+  color: var(--text-color);
+}
+
+/* Buttons */
+button {
+  margin-top: 1rem;
+  padding: 0.5rem 1rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+button:hover {
+  background-color: var(--primary-hover);
+}
+
+.close-btn {
+  background-color: var(--danger-color);
+}
+.close-btn:hover {
+  background-color: var(--danger-hover);
+}
+
+/* Headings */
+h1, h2, h3, h4 {
+  color: #2d3748;
+}
+
+/* Inputs */
+input, select, textarea {
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.25rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  box-sizing: border-box;
+  background-color: var(--input-bg);
+  transition: border-color 0.2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Search */
+.search-input {
+  max-width: 400px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #bbb;
+  border-radius: 4px;
+}
+
+/* Table */
+.patient-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--card-bg);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+  margin-bottom: 2rem;
+}
+
+.patient-table th,
+.patient-table td {
+  padding: 0.75rem;
+  border: 1px solid #eee;
+  text-align: left;
+}
+
+.patient-table th {
+  background-color: #e9eef6;
+  font-weight: bold;
+}
+
+.patient-table td button {
+  padding: 0.4rem 0.8rem;
+  margin-right: 0.5rem;
+}
+
+/* Form Section */
+.form-section {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+/* Conditions */
+.condition-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1rem;
+}
+
+.condition-card {
+  background: var(--card-elevated-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Attachments */
+.file-entry {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.remove-file-btn {
+  background: var(--danger-color);
+  color: white;
+  border: none;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+  cursor: pointer;
+}
+.remove-file-btn:hover {
+  background-color: var(--danger-hover);
+}
+
+/* Form Layout */
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.form-pair {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+.form-pair > div {
+  flex: 1;
+}
+
+.remove-condition {
+  align-self: flex-end;
+  margin-left: auto;
+  margin-bottom: 0.5rem;
+  color: var(--danger-color);
+  cursor: pointer;
+  font-size: 1rem;
+}
+.remove-condition:hover {
+  color: var(--danger-hover);
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+.pagination button {
+  padding: 0.4rem 0.8rem;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.pagination button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* Auth Buttons */
+.auth-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.login-btn,
+.logout-btn {
+  padding: 0.5rem 1.2rem;
+  border: none;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.login-btn {
+  background-color: var(--primary-color);
+  color: white;
+}
+
+.login-btn:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+}
+
+.logout-btn {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.logout-btn:hover {
+  background-color: var(--danger-hover);
+  transform: translateY(-1px);
+}
