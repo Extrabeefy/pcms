@@ -1,13 +1,13 @@
 # 🩺 Patient Clinical Management System (PCMS)
 
-PCMS is a full-stack system for managing patient records and their clinical attachments (e.g., MRI Scans, CAT Scans, Doctor Reports).  
-It consists of a modern React UI, .NET 9 Minimal API backend, and LocalStack for local AWS S3 simulation.
+PCMS is an all in one system for managing patient records and their clinical attachments (e.g., MRI Scans, CAT Scans, Doctor Reports).  
+It consists of a Modern React UI, .NET 9 Minimal API backend, and LocalStack for local AWS S3 emulation.
 
 ---
 
 ## 🖼️ Architecture
 
-The following diagram outlines the high-level architecture and flow of data between components:
+The following diagram outlines the high-level architecture
 
 ![Design Diagram](pcms.drawio.png)
 
@@ -19,7 +19,8 @@ The following diagram outlines the high-level architecture and flow of data betw
 PCMSApi/        # .NET 9 Minimal API for managing patients
 pcms-ui/        # React frontend for interacting with the API
 docker-compose.yml
-Makefile        # Command shortcuts for running LocalStack & uploading files
+Makefile        # Bash commands for starting local development stack and uploading scans
+run.ps1         # Powershell commands for starting local development stack and uploading scans
 ```
 
 ---
@@ -27,20 +28,20 @@ Makefile        # Command shortcuts for running LocalStack & uploading files
 ## 🧪 Features
 
 ### ✅ WebAPI (.NET 9 Minimal API)
-- Built using the latest .NET 9 Minimal API style for performance, simplicity, and clarity
-- Supports full CRUD operations on patient records
-- Uploads and manages clinical attachments (MRI, CAT Scan, Doctor Reports)
+- Used .NET 9 Minimal API for performance, simplicity, and clarity
+- The API supports full CRUD operations on patient records
+- Allows users to upload and manage clinical attachments (MRI, CAT Scan, Doctor Reports)
 - Stores metadata in Postgres and files in S3-compatible storage (LocalStack)
 - JWT-based static token authentication for development use
 
 ### ✅ React UI (`pcms-ui`)
-- Responsive, accessible interface with full Create, Read, Update, Delete support
+- Responsive, UI allowing the user's full Create, Read, Update, Delete support for patient data
 - Upload multiple files with associated document types via dropdown
 - Search/filter patients by name, condition, or document type
 - User authentication with login/logout buttons
 
 ### ✅ LocalStack (Simulated AWS)
-- Emulates AWS S3 fully locally, no cloud dependency
+- Using to emulate AWS S3 locally
 - **Why LocalStack?** Using LocalStack is better than managing files in mounted volumes because:
   - Mimics production-like S3 behavior (folder structure, presigned URLs, etc.)
   - Enables testing lifecycle events and security boundaries without touching real cloud resources
@@ -52,7 +53,7 @@ Makefile        # Command shortcuts for running LocalStack & uploading files
 - **Why PostgreSQL?**
   - Chosen over SQLite for its full-featured relational capabilities, concurrent access support, and robust transaction handling
   - Scales easily with future needs like audit logging, advanced querying, and indexing
-  - Supported natively in cloud and containerized environments, making it a production-ready choice even during local development
+  - Supported natively in cloud and containerized environments, making it a great choice for local development
 ---
 
 ## 🛠️ How to Run 
@@ -111,18 +112,11 @@ make init-s3
 
 ## 📥 API Endpoints
 
-| Method | Endpoint                                 | Description                                  |
-|--------|------------------------------------------|----------------------------------------------|
-| GET    | `/patients`                              | List patients (paginated)                    |
-| POST   | `/patients`                              | Create patient (with attachments)            |
-| PUT    | `/patients/{id}`                         | Update patient (with attachments)            |
-| DELETE | `/patients/{id}`                         | Delete patient and all attachments           |
-| DELETE | `/patients/{id}/attachments/{attachmentId}` | Delete a specific attachment              |
-| GET    | `/auth/dev-token`                        | Get a static development token               |
-
----
-
-## 🧠 Notes
-
-- S3 integration works fully offline via LocalStack
-- The UI checks for auth token before loading data
+| Method | Endpoint                                    | Description                                               |
+|--------|---------------------------------------------|-----------------------------------------------------------|
+| GET    | `/patients`                                 | List patients (paginated)                                 |
+| POST   | `/patients`                                 | Create patient (can include attachments)                  |
+| PUT    | `/patients/{id}`                            | Update patient (can include attachments)                  |
+| DELETE | `/patients/{id}`                            | Delete patient and all attachments                        |
+| DELETE | `/patients/{id}/attachments/{attachmentId}` | Delete a specific attachment                              |
+| GET    | `/auth/dev-token`                           | Get a static development token (Local Only)               |
