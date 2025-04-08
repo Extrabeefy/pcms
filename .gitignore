@@ -17,6 +17,8 @@ docker-compose.override.yml
 *.localstack
 *.pid
 
+/PCMSApi/publish
+
 # React build
 pcms-ui/build
 

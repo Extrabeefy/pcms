@@ -50,34 +50,26 @@ services:
       - ./init:/docker-entrypoint-initdb.d
 
   pcms-ui:
-    image: node:20
+    build:
+      context: ./pcms-ui
+      dockerfile: Dockerfile
     container_name: pcms-ui
-    working_dir: /app
-    volumes:
-      - ./pcms-ui:/app
     ports:
       - "3000:3000"
-    command: sh -c "npm install && npm run start"
     environment:
       - CHOKIDAR_USEPOLLING=true
 
   app:
-    image: mcr.microsoft.com/dotnet/aspnet:9.0
+    build:
+      context: ./PCMSApi
+      dockerfile: Dockerfile
     container_name: pcmsapi
-    working_dir: /app
-    volumes:
-      - ./PCMSApi/publish:/app
     ports:
       - "7000:8080"
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ConnectionStrings__DefaultConnection=Host=postgres;Database=pcms;Username=mcg;Password=health
       - AWS_ServiceURL=http://localstack:4566
-    entrypoint: [ "dotnet", "PCMSApi.dll" ]
-    #volumes:
-    #- .:/app
-    #working_dir: /app
-    #command: ["dotnet", "run", "--urls", "http://0.0.0.0:80"]
     depends_on:
       - localstack
       - postgres
